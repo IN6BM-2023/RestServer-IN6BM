@@ -1,6 +1,7 @@
 //Importaciones de nodejs
 const express = require('express');
 const cors = require('cors');
+const { dbConection } = require('../database/config');
 
 class Server {
 
@@ -10,14 +11,20 @@ class Server {
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
 
+        //Conectar a base de datos
+        this.conectarDB();
+
         // Middlewares
         this.middlewares();
-
 
         //Rutas de mi app
         this.routes();
 
+    }
 
+    //Función de conexión
+    async conectarDB(){
+        await dbConection();
     }
 
     //Un middleware es una función que se ejecuta antes de las rutas

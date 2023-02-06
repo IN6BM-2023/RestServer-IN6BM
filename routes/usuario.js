@@ -5,7 +5,7 @@ const { getUsuarios, postUsuario, putUsuario, deleteUsuario } = require('../cont
 const router = Router();
 
 
-router.get('/', getUsuarios);
+router.get('/mostrar', getUsuarios);
 
 router.post('/agregar', postUsuario);
 
