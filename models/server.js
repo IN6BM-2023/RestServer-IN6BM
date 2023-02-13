@@ -5,10 +5,11 @@ const { dbConection } = require('../database/config');
 
 class Server {
 
-    constructor(){
+    constructor() {
         //Configuración inicial
         this.app = express();
         this.port = process.env.PORT;
+        this.authPath = '/api/auth';
         this.usuariosPath = '/api/usuarios';
 
         //Conectar a base de datos
@@ -23,34 +24,35 @@ class Server {
     }
 
     //Función de conexión
-    async conectarDB(){
+    async conectarDB() {
         await dbConection();
     }
 
     //Un middleware es una función que se ejecuta antes de las rutas
-    middlewares(){
+    middlewares() {
 
         // CORS
-        this.app.use( cors() );
+        this.app.use(cors());
 
         // Lectura y parseo del Body
-        this.app.use( express.json() );
+        this.app.use(express.json());
 
         //Directorio publico
-        this.app.use(  express.static('public') );
+        this.app.use(express.static('public'));
 
     }
 
 
-    routes(){
-       this.app.use( this.usuariosPath, require('../routes/usuario') );
+    routes() {
+        this.app.use(this.authPath, require('../routes/auth'));
+        this.app.use(this.usuariosPath, require('../routes/usuario'));
     }
 
 
-    listen(){
-        this.app.listen( this.port, () => {
+    listen() {
+        this.app.listen(this.port, () => {
             console.log('Servidor corriendo en puerto ', this.port);
-        } )
+        })
     }
 
 

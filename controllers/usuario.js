@@ -70,10 +70,10 @@ const deleteUsuario = async(req = request, res = response) => {
     const { id } = req.params;
 
     //Eliminar fisicamente de la DB
-    const usuarioEliminado = await Usuario.findByIdAndDelete( id);
+    //const usuarioEliminado = await Usuario.findByIdAndDelete( id);
 
     //Eliminar cambiando el estado a false
-    //const usuarioEliminado = await Usuario.findByIdAndUpdate(id, { estado: false });
+     const usuarioEliminado = await Usuario.findByIdAndUpdate(id, { estado: false });
 
     res.json({
         msg: 'DELETE eliminar user',
