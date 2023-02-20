@@ -10,10 +10,6 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
 
-        // this.authPath = '/api/auth';
-        // this.usuariosPath = '/api/usuarios';
-        // this.categoriaPath = '/api/categorias';
-
         this.paths = {
             auth:       '/api/auth',
             categorias: '/api/categorias',
