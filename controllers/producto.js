@@ -92,6 +92,7 @@ const deleteProducto = async (req = request, res = response) => {
     //Eliminar por el estado:false
     const productoEliminado_ = await Producto.findByIdAndUpdate( id, { estado: false}, { new: true } );
 
+    
    res.json({
         msg: 'DELETE',
         //productoEliminado,
@@ -99,8 +100,6 @@ const deleteProducto = async (req = request, res = response) => {
    })
 
 }
-
-
 
 
 module.exports = {
