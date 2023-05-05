@@ -9,5 +9,3 @@ Para instalar los modulos de node ejecutar el comando
 ```
 npm install
 ```
-
-PD: Agregar 2 puntos extra a Angel Sanabria
