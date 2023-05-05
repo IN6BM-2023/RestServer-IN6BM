@@ -6,9 +6,7 @@ const { getCategorias, getCategoriaPorID, postCategoria, putCategoria, deleteCat
 const { existeCategoriaPorId } = require('../helpers/db-validators');
 
 // Middlewares
-const { validarCampos } = require('../middlewares/validar-campos');
-const { validarJWT } = require('../middlewares/validar-jwt');
-
+const { validarCampos, validarJWT } = require('../middlewares');
 
 const router = Router();
 
@@ -47,7 +45,5 @@ router.delete('/eliminar/:id', [
     check('id').custom( existeCategoriaPorId ),
     validarCampos
 ] ,deleteCategoria);
-
-
 
 module.exports = router;

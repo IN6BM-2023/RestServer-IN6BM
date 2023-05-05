@@ -6,5 +6,4 @@ const router = Router();
 //Manejo de rutas
 router.get('/:coleccion/:termino' ,buscar);
 
-
 module.exports = router;

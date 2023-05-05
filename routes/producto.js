@@ -2,19 +2,15 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 // Middlewares
-const { validarCampos } = require('../middlewares/validar-campos');
-const { validarJWT } = require('../middlewares/validar-jwt');
-const { tieneRole, esAdminRole } = require('../middlewares/validar-roles');
+const { validarCampos, validarJWT, tieneRole, esAdminRole } = require('../middlewares');
 
 //Controllers
 const { postProducto, putProducto, deleteProducto, getProductos, getProductoPorId } = require('../controllers/producto');
-
-const { existeProductoPorId } = require('../helpers/db-validators');
+const { existeProductoPorId } = require('../helpers');
 
 const router = Router();
 
 //Manejo de rutas
-
 //Obtener todas las productos - publico
 router.get('/', getProductos );
 
@@ -50,7 +46,5 @@ router.delete('/eliminar/:id', [
     check('id').custom( existeProductoPorId ),
     validarCampos
 ], deleteProducto);
-
-
 
 module.exports = router;

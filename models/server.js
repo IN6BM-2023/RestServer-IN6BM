@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const { dbConection } = require('../database/config');
+const { defaultAdmin } = require('../controllers/usuario');
 
 class Server {
 
@@ -18,7 +19,6 @@ class Server {
             usuarios:   '/api/usuarios'
         }
 
-
         //Conectar a base de datos
         this.conectarDB();
 
@@ -27,6 +27,9 @@ class Server {
 
         //Rutas de mi app
         this.routes();
+
+        //Crear admin por defecto
+        defaultAdmin();
 
     }
 
