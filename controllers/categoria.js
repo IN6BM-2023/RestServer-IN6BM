@@ -4,28 +4,32 @@ const Categoria = require('../models/categoria');
 
 const getCategorias = async (req = request, res = response) => {
 
-     //condiciones del get
-     const query = { estado: true };
+    //condiciones del get
+    const query = { estado: true };
 
-     const listaCategorias = await Promise.all([
-         Categoria.countDocuments(query),
-         Categoria.find(query).populate('usuario', 'nombre')
-     ]);
- 
-     res.json({
-         msg: 'get Api - Controlador Usuario',
-        listaCategorias
-     });
+    //  const listaCategorias = await Promise.all([
+    //      Categoria.countDocuments(query),
+    //      Categoria.find(query).populate('usuario', 'nombre')
+    //  ]);
+
+    const listaCategorias = await Categoria.find(query).populate('usuario', 'nombre');
+    const contadorCategoriasActivas = await Categoria.countDocuments(query);
+
+    res.json({
+        msg: 'get Api - Controlador Usuario',
+        listaCategorias,
+        contadorCategoriasActivas
+    });
 
 }
 
 
 const getCategoriaPorID = async (req = request, res = response) => {
 
-   const { id } = req.params;
-   const categoriaById = await Categoria.findById( id ).populate('usuario', 'nombre');
+    const { id } = req.params;
+    const categoriaById = await Categoria.findById(id).populate('usuario', 'nombre');
 
-   res.status(201).json( categoriaById );
+    res.status(201).json(categoriaById);
 
 }
 

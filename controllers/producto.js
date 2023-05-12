@@ -6,17 +6,23 @@ const getProductos = async (req = request, res = response) => {
      //condiciones del get
      const query = { estado: true };
 
-     const listaProductos = await Promise.all([
-         Producto.countDocuments(query),
-         Producto.find(query)
-            //.populate('usuario', 'nombre')
-            .populate('usuario', 'correo')
-            .populate('categoria', 'nombre')
-     ]);
+    //  const listaProductos = await Promise.all([
+    //      Producto.countDocuments(query),
+    //      Producto.find(query)
+    //         //.populate('usuario', 'nombre')
+    //         .populate('usuario', 'correo')
+    //         .populate('categoria', 'nombre')
+    //  ]);
+     
+     const listaProductos = await Producto.find(query)
+                                                    .populate('usuario', 'nombre')
+                                                    .populate('categoria', 'nombre');
+    const cantidadEnStockDisponibles =  await Producto.countDocuments(query);
      
      res.json({
          msg: 'Lista de productos activos',
-         listaProductos
+         listaProductos,
+         cantidadEnStockDisponibles
      });
 
 }
@@ -38,7 +44,9 @@ const postProducto = async (req = request, res = response) => {
 
     const { estado, usuario, ...body } = req.body;
 
-    const productoDB = await Producto.findOne({ nombre: body.nombre });
+    //Validación donde se busca el nombre pero en MAYUSCULAS
+    const nameValidation = body.nombre.toUpperCase();
+    const productoDB = await Producto.findOne({ nombre: nameValidation });
 
     //validacion si el producto ya existe
     if ( productoDB ) {
